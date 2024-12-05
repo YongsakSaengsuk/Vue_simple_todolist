@@ -13,7 +13,7 @@ export default {
     props: {
         saveText: Function
     },
-    data() {
+    data() {``
         return {
             inputvalue: '',
         }
