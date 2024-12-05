@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form @submit.prevent="handletext">
+        <form @submit.prevent="addnewText(inputvalue)">
             <input type="text" v-model="inputvalue">
             <button type="submit">Submit</button>
         </form>
@@ -11,21 +11,16 @@
 export default {
     name: 'Form',
     props: {
-        saveText: Function
+        addnewText: Function
     },
-    data() {``
+    data() {
         return {
             inputvalue: '',
         }
 
     },
     methods: {
-        handletext() {
-            if (this.inputvalue)
-                this.saveText(this.inputvalue);
-            else
-                alert("please Enter text");
-        }
+        
     },
 }
 </script>

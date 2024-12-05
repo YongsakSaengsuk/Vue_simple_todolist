@@ -17,9 +17,9 @@ export default {
     ListControl,
   },
   methods: {
-    saveText(value) {
+    addnewText(value) {
       console.log(value)
-      this.tasks.push({ id: this.tasks.length + 1, text: value })
+      this.tasks.push({ id: this.tasks.length ? this.tasks[this.tasks.length - 1].id + 1 : 1, text: value })
     }
   }
 }
@@ -28,8 +28,8 @@ export default {
 <template>
   <div>
     <h1>TODO LIST</h1>
-    <Form :saveText="saveText" />
-    <ListControl :taskstext="tasks"/>
+    <Form :addnewText="addnewText" />
+    <ListControl :taskstext="tasks" />
   </div>
 </template>
 
