@@ -1,6 +1,8 @@
 <template >
     <div>
         <h1>{{ taskname }}</h1>
+        <input type="checkbox">
+        <button class="edit-btn">Edit</button>
     </div>
 </template>
 <script>
