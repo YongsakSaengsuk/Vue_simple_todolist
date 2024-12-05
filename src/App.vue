@@ -1,10 +1,33 @@
-<script setup>
+<script>
+import Form from './components/Form.vue'
 
+    export default {
+      name: 'App',
+      data() {
+        return {
+          tasks: [
+            { id: 1, text: "Task 1" },
+            { id: 2, text: "Task 2" },
+            { id: 3, text: "Task 3" }
+          ]
+        }
+      },
+      components: {
+        Form
+      },
+      methods: {
+        saveText(value) {
+          console.log(value)
+          this.tasks.push({ id: this.tasks.length + 1, text: value })
+        }
+      }
+    }
 </script>
 
 <template>
   <div>
     <h1>TODO LIST</h1>
+    <Form :saveText="saveText"/>
   </div>
 </template>
 
