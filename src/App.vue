@@ -9,7 +9,8 @@ export default {
         { id: 1, text: "Task 1" },
         { id: 2, text: "Task 2" },
         { id: 3, text: "Task 3" }
-      ]
+      ],
+      editingTask: null,
     }
   },
   components: {
@@ -18,9 +19,26 @@ export default {
   },
   methods: {
     addnewText(value) {
-      console.log(value)
-      this.tasks.push({ id: this.tasks.length ? this.tasks[this.tasks.length - 1].id + 1 : 1, text: value })
-    }
+      if (this.editingTask) {
+        const task = this.tasks.find((task) => task.id === this.editingTask.id);
+        if (task) task.text = value;
+        this.editingTask = null;
+      } else {
+        this.tasks.push({
+          id: this.tasks.length ? this.tasks[this.tasks.length - 1].id + 1 : 1,
+          text: value,
+        });
+      }
+    },
+    EditTask({ id, text }) {
+      const task = this.tasks.find((task) => task.id === id);
+      if (task) task.text = text;
+      this.editingTask = null;
+    },
+    setEditingTask(task) {
+      console.log("setEditingTask", task)
+      this.editingTask = task;
+    },
   }
 }
 </script>
@@ -28,8 +46,8 @@ export default {
 <template>
   <div>
     <h1>TODO LIST</h1>
-    <Form :addnewText="addnewText" />
-    <ListControl :taskstext="tasks" />
+    <Form :editingTask="editingTask" @addnewText="addnewText" @editTask="EditTask" />
+    <ListControl :taskstext="tasks" @edit-task="setEditingTask" />
   </div>
 </template>
 

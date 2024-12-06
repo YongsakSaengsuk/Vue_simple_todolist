@@ -1,6 +1,6 @@
 <template>
     <div class="list-container">
-        <List v-for="task in taskstext" :key="task.id" :taskname="task.text" :taskID="task.id" />
+        <List v-for="task in taskstext" :key="task.id" :taskname="task.text" :taskID="task.id" @editTask="emitEditTask" />
     </div>
 </template>
 <script>
@@ -11,7 +11,15 @@ export default {
         List
     },
     props: {
-        taskstext: Array
+        taskstext: Array,
+        EditTask: Function,
+    },
+    methods: {
+        emitEditTask(task) {
+            // Emit the event to parent
+            console.log(task)
+            this.$emit("edit-task", task);
+        },
     }
 }
 </script>
