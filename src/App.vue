@@ -5,11 +5,7 @@ export default {
   name: 'App',
   data() {
     return {
-      tasks: [
-        { id: 1, text: "Task 1" },
-        { id: 2, text: "Task 2" },
-        { id: 3, text: "Task 3" }
-      ],
+      tasks: JSON.parse(localStorage.getItem('tasks')) || [],
       editingTask: null,
     }
   },
@@ -29,6 +25,8 @@ export default {
           text: value,
         });
       }
+      console.log(tasks)
+      
     },
     EditTask({ id, text }) {
       const task = this.tasks.find((task) => task.id === id);
@@ -36,10 +34,21 @@ export default {
       this.editingTask = null;
     },
     setEditingTask(task) {
-      console.log("setEditingTask", task)
       this.editingTask = task;
     },
-  }
+    setLocalStorage() {
+      localStorage.setItem("tasks", JSON.stringify(this.tasks));
+    }
+  },
+  watch: {
+    tasks: {
+      handler(newTasks) {
+        // Save updated tasks to localStorage
+        localStorage.setItem('tasks', JSON.stringify(newTasks));
+      },
+      deep: true, // Watch nested changes within tasks
+    },
+  },
 }
 </script>
 
